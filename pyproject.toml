@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "moolticutepy"
 version = "2024.1001-alpha"
 description = "Library an CLI to speak with moolticute service"
-readme = "README.md"
+readme = {file = "README.md", content-type = "text/markdown"}
 authors = [
     { name = "Raul Sampedro", email = "5142014+rsrdesarrollo@users.noreply.github.com" },
 ]
