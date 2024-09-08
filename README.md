@@ -87,7 +87,6 @@ Sets a password for a specific service.
 
 ```
 $ moolticutepy set example.com -l admin -p newPassword123
-Entering management mode. Please approve prompt on device ... [OK]
 Credentials stored for example.com [OK]
 ```
 
