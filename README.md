@@ -92,4 +92,5 @@ Credentials stored for example.com [OK]
 
 ## License
 
-This project is licensed under the MIT license. See the LICENSE file for details.
+This project is licensed under the [MIT License](https://github.com/rsrdesarrollo/moolticutepy/blob/master/LICENSE).
+
