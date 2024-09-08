@@ -69,7 +69,6 @@ Retrieves a password for a specific service.
 
 ```
 $ moolticutepy get example.com -f private.example.com
-Entering management mode. Please approve prompt on device ... [OK]
 password123
 ```
 
