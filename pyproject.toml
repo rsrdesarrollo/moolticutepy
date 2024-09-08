@@ -5,13 +5,13 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.dependencies]
 python = "^3.12"
 click = "~8.1.7"
-websocket-client = "~1.8.0"
+websockets = "~13.0.1"
 pydantic_core = "~2.20.1"
 pydantic = "~2.8.2"
 
 [tool.poetry]
 name = "moolticutepy"
-version = "0.1.0"
+version = "0.2.0"
 description = "Library an CLI to speak with moolticute service"
 readme = "README.md"
 
