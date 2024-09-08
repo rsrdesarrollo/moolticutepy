@@ -1,4 +1,4 @@
-from websockets.sync.client import connect
+from websocket import create_connection
 from moolticutepy import schemas
 from moolticutepy.log import log
 from pydantic import TypeAdapter
@@ -24,7 +24,7 @@ class MoolticuteClient(Thread):
         self._msg_in = queue.Queue()
         self._management = False
 
-        self._ws = connect("ws://localhost:30035")
+        self._ws = create_connection("ws://localhost:30035")
         self.start()
 
     def run(self):
