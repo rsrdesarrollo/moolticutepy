@@ -50,7 +50,7 @@ $ moolticutepy list_logins
 Entering management mode. Please approve prompt on device ...[OK]
 - example.com []:
 	 * {'category': '0', 'date_created': '2024-07-30', 'date_last_used': '2024-07-30', 'description': 'description', 'favorite': -1, 'login': 'user@example.com'}
-    * {'category': '0', 'date_created': '2024-07-30', 'date_last_used': '2024-07-30', 'description': 'description', 'favorite': -1, 'login': 'other.user@example.com'}
+     * {'category': '0', 'date_created': '2024-07-30', 'date_last_used': '2024-07-30', 'description': 'description', 'favorite': -1, 'login': 'other.user@example.com'}
 - other.example.com []:
 	 * {'category': '2', 'date_created': '', 'date_last_used': '2024-09-04', 'description': 'description', 'favorite': 20, 'login': 'username@example.com'}
 ```
