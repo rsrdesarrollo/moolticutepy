@@ -68,7 +68,7 @@ Retrieves a password for a specific service.
 **Example:**
 
 ```
-$ moolticutepy get example.com -f private.example.com
+$ moolticutepy get private.example.com -f example.com
 password123
 ```
 
