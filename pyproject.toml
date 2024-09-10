@@ -11,7 +11,7 @@ pydantic = "~2.8.2"
 
 [tool.poetry]
 name = "moolticutepy"
-version = "0.2.0"
+version = "0.3.0"
 description = "Library an CLI to speak with moolticute service"
 readme = "README.md"
 

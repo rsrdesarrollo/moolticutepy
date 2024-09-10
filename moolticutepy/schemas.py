@@ -50,10 +50,11 @@ class AskPassword(BaseRequest):
 
 
 class SetCredentialData(BaseModel):
-    description: Optional[str] = None
+    description: Optional[str] = ""
     login: Optional[str] = None
     password: str
     service: str
+    saveManualCredential: Literal[1] = 1 
 
 
 class SetCredential(BaseRequest):
