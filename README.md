@@ -2,7 +2,7 @@ A Python client library to interact with a Mooltipass device via Moolticuted Web
 
 ## Description
 
-This project provides a Python library for interacting with Mooltipass devices using Bluetooth Low Energy (BLE) protocol. It allows you to manage logins, get/set passwords, and more.
+This project provides a Python library for interacting with Mooltipass devices through the Moolticuted daemon. It allows you to manage logins, get/set passwords, and more.
 
 ## Features
 
