@@ -10,6 +10,12 @@ This project provides a Python library for interacting with Mooltipass devices t
 - Convenience methods for common use cases, like getting passwords or setting credentials.
 - CLI usage
 
+## Installation
+
+```
+pip install moolticutepy
+```
+
 ## Library Usage
 
 To use this library, simply import it into your Python project and start using its functions. For example:
