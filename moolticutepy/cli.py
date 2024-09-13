@@ -35,7 +35,7 @@ def main(ctx: click.Context, debug: bool):
     try:
         mooltipass.wait_for_unlock(timeout=1)
     except moolticutepy.MoolticuteTimeoutException:
-        if mooltipass.is_locked():
+        if mooltipass.is_locked:
             print("Waiting for mooltipass to unlock .... ", end="")
             mooltipass.wait_for_unlock()
             print("[OK]")

@@ -125,7 +125,7 @@ class MemoryManagementChange(BaseResponse):
 class AskPasswordResponseData(BaseModel):
     desc: Optional[str] = None
     login: Optional[str] = None
-    password: Optional[str] = None
+    password: Optional[str] = Field(None, exclude=True)
     service: Optional[str] = None
     third: Optional[str] = None
     failed: Optional[bool] = False
@@ -140,7 +140,7 @@ class AskPasswordResponse(BaseResponse):
 class SetCredentialsResponseData(BaseModel):
     desc: Optional[str] = None
     login: Optional[str] = None
-    password: Optional[str] = None
+    password: Optional[str] = Field(None, exclude=True)
     service: Optional[str] = None
     failed: Optional[bool] = False
     error_message: Optional[str] = None
