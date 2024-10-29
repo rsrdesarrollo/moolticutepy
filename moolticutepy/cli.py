@@ -45,16 +45,81 @@ def main(ctx: click.Context, debug: bool):
 
 @main.command()
 @pass_client
-def list_logins(moolticuted: moolticutepy.MoolticuteClient):
-    try:
-        print("Entering management mode. Please approve prompt on device ...", end="")
-        data = moolticuted.get_all_logins()
-        print("[OK]")
+@click.option(
+    "-o",
+    "--out-format",
+    required=False,
+    type=click.Choice(["json", "text"], case_sensitive=False),
+    default="text",
+)
+@click.option(
+    "--linked",
+    is_flag=True,
+    show_default=True,
+    default=False,
+    help="Show only linked accounts",
+)
+@click.option(
+    "--resolve-links",
+    is_flag=True,
+    show_default=True,
+    default=False,
+    help="Resolve links of accounts",
+)
+def list_logins(
+    moolticuted: moolticutepy.MoolticuteClient,
+    out_format: str,
+    linked: bool,
+    resolve_links: bool,
+):
+    if out_format == "json" and resolve_links:
+        raise click.UsageError("Cannot use --resolve-links with json format")
 
-        for login in data:
-            print(f"- {login.service} [{login.multiple_domains}]:")
-            for child in login.childs:
-                print(f"\t * {child.model_dump()}")
+    try:
+        print(
+            "Entering management mode. Please approve prompt on device ...",
+            end="",
+            file=sys.stderr,
+        )
+        sys.stderr.flush()
+        data = moolticuted.get_all_logins()
+        print("[OK]", file=sys.stderr)
+        sys.stderr.flush()
+
+        resolve_links_dict = dict()
+        if resolve_links:
+            for login in data:
+                service = login.service
+                for child in login.childs:
+                    resolve_links_dict[str(child.address)] = dict(
+                        service=service, login=child.login
+                    )
+
+        if out_format == "text":
+            for login in data:
+
+                has_linked = any(
+                    map(lambda child: child.pointed_to_child != [0, 0], login.childs)
+                )
+                if linked and not has_linked:
+                    continue
+
+                print(f"- {login.service} [{login.multiple_domains}]:")
+                for child in login.childs:
+                    if linked and child.pointed_to_child == [0, 0]:
+                        continue
+
+                    print(f"\t * {child.login}:")
+                    for k, v in child.model_dump(exclude=["login"]).items():
+                        if k == "pointed_to_child" and resolve_links:
+                            resolved_pointer = resolve_links_dict[str(v)]
+                            print(f"\t\t - {k}: {v} -> {resolved_pointer}")
+                        else:
+                            print(f"\t\t - {k}: {v}")
+        elif out_format == "json":
+            for login in data:
+                print(login.model_dump_json(exclude_none=False))
+
     except moolticutepy.MoolticuteException as ex:
         log.fatal(f"{ex}")
 

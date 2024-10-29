@@ -61,6 +61,24 @@ class SetCredential(BaseRequest):
     msg: Literal["set_credential"] = "set_credential"
     data: SetCredentialData
 
+class SetCredentialsData(BaseModel):
+    address: List[int]
+    category: int
+    description: Optional[str] = ""
+    favorite: Optional[int] = -1
+    key_after_login: Optional[int] = 65535 
+    key_after_pwd: Optional[int] = 65535
+    login: str
+    multiple_domains: Optional[str] = ""    # Coma list of tlds for example .com,.es
+    password: Optional[str] = ""            # keep blank to keep current password
+    pointed_to_child: List[int]
+    service: str
+
+
+class SetCredentials(BaseRequest):          # Used in management mode tu update multiple credentials. Allows to link credentials
+    msg: Literal["set_credentials"] = "set_credentials"
+    data: SetCredentialsData
+
 
 ## RESPONSES
 ######################
@@ -71,20 +89,20 @@ class BaseResponse(BaseModel):
 
 
 class MemoryManagementLoginNodeChild(BaseModel):
-    address: List[int] = Field(..., exclude=True)
+    address: List[int]
     category: str
     date_created: str
     date_last_used: str
     description: str
     favorite: int
-    key_after_login: str = Field(..., exclude=True)
-    key_after_pwd: str = Field(..., exclude=True)
+    key_after_login: str
+    key_after_pwd: str
     login: str
     password_enc: List[int] = Field(..., exclude=True)
-    pointed_to_child: List[int] = Field(..., exclude=True)
-    pwd_blank_flag: str = Field(..., exclude=True)
-    totp_code_size: Optional[str] = Field(None, exclude=True)
-    totp_time_step: Optional[str] = Field(None, exclude=True)
+    pointed_to_child: List[int]
+    pwd_blank_flag: str
+    totp_code_size: Optional[str] = None
+    totp_time_step: Optional[str] = None
 
 
 class MemoryManagementLoginNode(BaseModel):
