@@ -222,6 +222,45 @@ class MoolticuteClient(Thread):
 
         return response.data.login_nodes
 
+    def get_otp(
+        self,
+        service: str,
+        login: Optional[str] = None,
+        timeout: Optional[float] = None,
+    ):
+        """
+        Asks the Mooltipass for a OTP password.
+
+        Args:
+            service (str): The service for which to ask the password.
+            fallback_service (str, optional): A fallback service in case the primary one is not available.
+                Defaults to None.
+            login (str, optional): A specific login for which to ask the password. Defaults to None.
+            timeout (float, optional): The time in seconds to wait for the response from the Mooltipass.
+                Defaults to no timeout.
+
+        Returns:
+            schemas.AskPasswordResponse: A response indicating whether the password was retrieved
+                successfully or if there's an error.
+
+        Raises:
+            MoolticuteException: If there's an error getting the password.
+        """
+        msg = schemas.AskOtp(
+            data=schemas.AskOtpData(
+                service=service, fallback_service=fallback_service, login=login
+            )
+        )
+
+        self._send(msg)
+
+        response = self._wait_for_response(msg.client_id, timeout=timeout)
+        if response.data.failed:
+            raise MoolticuteException(
+                f"Error getting OTP: {response.data.error_message}"
+            )
+        return response
+
     def get_password(
         self,
         service: str,
@@ -256,7 +295,6 @@ class MoolticuteClient(Thread):
         self._send(msg)
 
         response = self._wait_for_response(msg.client_id, timeout=timeout)
-
         if response.data.failed:
             raise MoolticuteException(
                 f"Error getting credential: {response.data.error_message}"
