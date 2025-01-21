@@ -143,6 +143,24 @@ def get(
     except moolticutepy.MoolticuteException as ex:
         log.fatal(f"{ex}")
 
+@main.command()
+@pass_client
+@click.argument("service")
+@click.option("--login", "-l", required=False, default=None)
+def otp(
+    moolticuted: moolticutepy.MoolticuteClient,
+    service: str,
+    fallback_service: str,
+    login: str,
+):
+    try:
+        response = moolticuted.get_otp(
+            service=service, login=login, timeout=20
+        )
+        print(response.data.totp_code)
+    except moolticutepy.MoolticuteException as ex:
+        log.fatal(f"{ex}")
+
 
 @main.command()
 @pass_client

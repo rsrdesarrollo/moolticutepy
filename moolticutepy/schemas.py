@@ -48,6 +48,13 @@ class AskPassword(BaseRequest):
     msg: Literal["ask_password"] = "ask_password"
     data: AskPasswordData
 
+class AskOtpData(BaseModel):
+    login: Optional[str] = None
+    service: Optional[str] = None
+
+class AskOtp(BaseRequest):
+    msg: Literal["get_totp_code"] = "get_totp_code"
+    data: AskOtpData
 
 class SetCredentialData(BaseModel):
     description: Optional[str] = ""
@@ -154,6 +161,16 @@ class AskPasswordResponse(BaseResponse):
     msg: Literal["ask_password"]
     data: AskPasswordResponseData
 
+class AskOtpResponseData(BaseModel):
+    totp_code: Optional[str] = None
+    failed: Optional[bool] = False
+    error_message: Optional[str] = None
+
+
+class AskOtpResponse(BaseResponse):
+    msg: Literal["get_totp_code"]
+    data: AskOtpResponseData
+
 
 class SetCredentialsResponseData(BaseModel):
     desc: Optional[str] = None
@@ -209,6 +226,7 @@ class UnhandledResponse(BaseResponse):
 ResponseMessageType = Union[
     MemoryManagementDataResponse,
     AskPasswordResponse,
+    AskOtpResponse,
     SetCredentialsResponse,
     ParamChangedResponse,
     StatusChangedResponse,
