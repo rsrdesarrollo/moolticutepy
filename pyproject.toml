@@ -3,7 +3,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 click = "~8.1.7"
 websockets = "~13.0.1"
 pydantic_core = "~2.20.1"
